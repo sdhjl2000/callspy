@@ -9,14 +9,13 @@ import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.dynamic.DynamicType;
 import net.bytebuddy.utility.JavaModule;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Agent {
-
   public static void premain(String args, Instrumentation instrumentation){
-
+    final Logger logger = LoggerFactory.getLogger(Agent.class);
     final PluginFinder pluginFinder = new PluginFinder(new PluginBootstrap().loadPlugins());
-
-
     new AgentBuilder.Default().type(pluginFinder.buildMatch()).transform(new AgentBuilder.Transformer() {
       @Override
       public DynamicType.Builder<?> transform(DynamicType.Builder<?> builder, TypeDescription typeDescription,
@@ -25,12 +24,12 @@ public class Agent {
         if (pluginDefine != null) {
           DynamicType.Builder<?> newBuilder = pluginDefine.define(typeDescription.getTypeName(), builder, classLoader);
           if (newBuilder != null) {
-            System.out.println(String.format("Finish the prepare stage for {}.", typeDescription.getName()));
+            logger.info("Finish the prepare stage for {}.", typeDescription.getName());
             return newBuilder;
           }
         }
 
-        System.out.println(String.format("Matched class {}, but ignore by finding mechanism.", typeDescription.getTypeName()));
+        logger.info("Matched class {}, but ignore by finding mechanism.", typeDescription.getTypeName());
         return builder;
       }
     }).with(new AgentBuilder.Listener() {
@@ -42,7 +41,7 @@ public class Agent {
       @Override
       public void onTransformation(TypeDescription typeDescription, ClassLoader classLoader, JavaModule module,
                                    boolean loaded, DynamicType dynamicType) {
-        System.out.println(String.format("On Transformation class {}.", typeDescription.getName()));
+        logger.info("On Transformation class {}.", typeDescription.getName());
       }
 
       @Override
@@ -53,7 +52,7 @@ public class Agent {
 
       @Override public void onError(String typeName, ClassLoader classLoader, JavaModule module, boolean loaded,
                                     Throwable throwable) {
-        System.out.println(String.format("Failed to enhance class " + typeName, throwable));
+        logger.info("Failed to enhance class " + typeName, throwable);
       }
 
       @Override

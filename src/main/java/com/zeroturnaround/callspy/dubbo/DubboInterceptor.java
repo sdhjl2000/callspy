@@ -10,6 +10,8 @@ import com.alibaba.dubbo.rpc.RpcContext;
 import com.zeroturnaround.callspy.plugin.interceptor.enhance.EnhancedInstance;
 import com.zeroturnaround.callspy.plugin.interceptor.enhance.InstanceMethodsAroundInterceptor;
 import com.zeroturnaround.callspy.plugin.interceptor.enhance.MethodInterceptResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * {@link DubboInterceptor} define how to enhance class {@link com.alibaba.dubbo.monitor.support.MonitorFilter#invoke(Invoker,
@@ -19,6 +21,7 @@ import com.zeroturnaround.callspy.plugin.interceptor.enhance.MethodInterceptResu
  * @author zhangxin
  */
 public class DubboInterceptor implements InstanceMethodsAroundInterceptor {
+    private final Logger logger= LoggerFactory.getLogger(DubboInterceptor.class);
     /**
      * <h2>Consumer:</h2> The serialized trace context data will
      * inject to the {@link RpcContext#attachments} for transport to provider side.
@@ -38,7 +41,7 @@ public class DubboInterceptor implements InstanceMethodsAroundInterceptor {
 
         final String host = requestURL.getHost();
         final int port = requestURL.getPort();
-        System.out.println(host + ":" + port);
+        logger.info(host + ":" + port);
     }
 
     @Override

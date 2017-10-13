@@ -4,7 +4,7 @@ import static net.bytebuddy.jar.asm.Opcodes.ACC_PRIVATE;
 import static net.bytebuddy.matcher.ElementMatchers.isStatic;
 import static net.bytebuddy.matcher.ElementMatchers.not;
 
-import com.zeroturnaround.callspy.StringUtil;
+import com.zeroturnaround.callspy.util.StringUtil;
 import net.bytebuddy.dynamic.DynamicType;
 import net.bytebuddy.implementation.FieldAccessor;
 import net.bytebuddy.implementation.MethodDelegation;
@@ -16,8 +16,10 @@ import com.zeroturnaround.callspy.plugin.interceptor.ConstructorInterceptPoint;
 import com.zeroturnaround.callspy.plugin.interceptor.EnhanceException;
 import com.zeroturnaround.callspy.plugin.interceptor.InstanceMethodsInterceptPoint;
 import com.zeroturnaround.callspy.plugin.interceptor.StaticMethodsInterceptPoint;
-import com.zeroturnaround.callspy.logging.ILog;
-import com.zeroturnaround.callspy.logging.LogManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class controls all enhance operations, including enhance constructors, instance methods and static methods. All
@@ -29,7 +31,7 @@ import com.zeroturnaround.callspy.logging.LogManager;
  * @author wusheng
  */
 public abstract class ClassEnhancePluginDefine extends AbstractClassEnhancePluginDefine {
-    private static final ILog logger = LogManager.getLogger(ClassEnhancePluginDefine.class);
+    private static final Logger logger = LoggerFactory.getLogger(ClassEnhancePluginDefine.class);
 
     /**
      * New field name.

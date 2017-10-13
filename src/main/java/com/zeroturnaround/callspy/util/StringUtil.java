@@ -1,4 +1,4 @@
-package com.zeroturnaround.callspy;
+package com.zeroturnaround.callspy.util;
 
 public final class StringUtil {
     public static boolean isEmpty(String str) {

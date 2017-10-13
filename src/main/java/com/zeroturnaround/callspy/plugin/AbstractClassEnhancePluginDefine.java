@@ -1,11 +1,11 @@
 package com.zeroturnaround.callspy.plugin;
 
-import com.zeroturnaround.callspy.StringUtil;
-import net.bytebuddy.dynamic.DynamicType;
 import com.zeroturnaround.callspy.plugin.interceptor.enhance.ClassEnhancePluginDefine;
 import com.zeroturnaround.callspy.plugin.match.ClassMatch;
-import com.zeroturnaround.callspy.logging.ILog;
-import com.zeroturnaround.callspy.logging.LogManager;
+import com.zeroturnaround.callspy.util.StringUtil;
+import net.bytebuddy.dynamic.DynamicType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Basic abstract class of all sky-walking auto-instrumentation plugins.
@@ -14,7 +14,7 @@ import com.zeroturnaround.callspy.logging.LogManager;
  * If you want to know more about enhancing, you should go to see {@link ClassEnhancePluginDefine}
  */
 public abstract class AbstractClassEnhancePluginDefine {
-    private static final ILog logger = LogManager.getLogger(AbstractClassEnhancePluginDefine.class);
+    private static final Logger logger = LoggerFactory.getLogger(AbstractClassEnhancePluginDefine.class);
 
     /**
      * Main entrance of enhancing the class.

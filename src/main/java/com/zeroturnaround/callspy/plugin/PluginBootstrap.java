@@ -3,9 +3,8 @@ package com.zeroturnaround.callspy.plugin;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.zeroturnaround.callspy.logging.ILog;
-import com.zeroturnaround.callspy.logging.LogManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Plugins finder.
@@ -15,7 +14,7 @@ import com.zeroturnaround.callspy.logging.LogManager;
  * @author wusheng
  */
 public class PluginBootstrap {
-    private static final ILog logger = LogManager.getLogger(PluginBootstrap.class);
+    private static final Logger logger = LoggerFactory.getLogger(PluginBootstrap.class);
 
     /**
      * load all plugins.
@@ -35,7 +34,7 @@ public class PluginBootstrap {
             try {
                 PluginCfg.INSTANCE.load(pluginUrl.openStream());
             } catch (Throwable t) {
-                logger.error(t, "plugin file [{}] init failure.", pluginUrl);
+                logger.error( "plugin file [{}] init failure.", pluginUrl);
             }
         }
 
@@ -49,7 +48,7 @@ public class PluginBootstrap {
                     (AbstractClassEnhancePluginDefine) Class.forName(pluginDefine.getDefineClass()).newInstance();
                 plugins.add(plugin);
             } catch (Throwable t) {
-                logger.error(t, "load plugin [{}] failure.", pluginDefine.getDefineClass());
+                logger.error("load plugin [{}] failure.", pluginDefine.getDefineClass());
             }
         }
 

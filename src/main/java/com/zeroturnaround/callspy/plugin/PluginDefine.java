@@ -1,6 +1,6 @@
 package com.zeroturnaround.callspy.plugin;
 
-import com.zeroturnaround.callspy.StringUtil;
+import com.zeroturnaround.callspy.util.StringUtil;
 
 import com.zeroturnaround.callspy.conf.Config;
 import com.zeroturnaround.callspy.plugin.exception.IllegalPluginDefineException;

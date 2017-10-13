@@ -7,8 +7,8 @@ import net.bytebuddy.implementation.bind.annotation.Morph;
 import net.bytebuddy.implementation.bind.annotation.Origin;
 import net.bytebuddy.implementation.bind.annotation.RuntimeType;
 import com.zeroturnaround.callspy.plugin.interceptor.loader.InterceptorInstanceLoader;
-import com.zeroturnaround.callspy.logging.ILog;
-import com.zeroturnaround.callspy.logging.LogManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The actual byte-buddy's interceptor to intercept class instance methods.
@@ -17,7 +17,7 @@ import com.zeroturnaround.callspy.logging.LogManager;
  * @author wusheng
  */
 public class StaticMethodsInterWithOverrideArgs {
-    private static final ILog logger = LogManager.getLogger(StaticMethodsInterWithOverrideArgs.class);
+    private static final Logger logger = LoggerFactory.getLogger(StaticMethodsInterWithOverrideArgs.class);
 
     /**
      * A class full name, and instanceof {@link StaticMethodsAroundInterceptor}
@@ -56,7 +56,7 @@ public class StaticMethodsInterWithOverrideArgs {
         try {
             interceptor.beforeMethod(clazz, method, allArguments, method.getParameterTypes(), result);
         } catch (Throwable t) {
-            logger.error(t, "class[{}] before static method[{}] intercept failure", clazz, method.getName());
+            logger.error("class[{}] before static method[{}] intercept failure", clazz, method.getName());
         }
 
         Object ret = null;
@@ -70,14 +70,14 @@ public class StaticMethodsInterWithOverrideArgs {
             try {
                 interceptor.handleMethodException(clazz, method, allArguments, method.getParameterTypes(), t);
             } catch (Throwable t2) {
-                logger.error(t2, "class[{}] handle static method[{}] exception failure", clazz, method.getName(), t2.getMessage());
+                logger.error("class[{}] handle static method[{}] exception failure", clazz, method.getName(), t2.getMessage());
             }
             throw t;
         } finally {
             try {
                 ret = interceptor.afterMethod(clazz, method, allArguments, method.getParameterTypes(), ret);
             } catch (Throwable t) {
-                logger.error(t, "class[{}] after static method[{}] intercept failure:{}", clazz, method.getName(), t.getMessage());
+                logger.error("class[{}] after static method[{}] intercept failure:{}", clazz, method.getName(), t.getMessage());
             }
         }
         return ret;

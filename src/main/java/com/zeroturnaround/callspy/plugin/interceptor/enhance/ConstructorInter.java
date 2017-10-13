@@ -5,8 +5,8 @@ import net.bytebuddy.implementation.bind.annotation.RuntimeType;
 import net.bytebuddy.implementation.bind.annotation.This;
 import com.zeroturnaround.callspy.plugin.PluginException;
 import com.zeroturnaround.callspy.plugin.interceptor.loader.InterceptorInstanceLoader;
-import com.zeroturnaround.callspy.logging.ILog;
-import com.zeroturnaround.callspy.logging.LogManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The actual byte-buddy's interceptor to intercept constructor methods.
@@ -15,7 +15,7 @@ import com.zeroturnaround.callspy.logging.LogManager;
  * @author wusheng
  */
 public class ConstructorInter {
-    private static final ILog logger = LogManager.getLogger(ConstructorInter.class);
+    private static final Logger logger = LoggerFactory.getLogger(ConstructorInter.class);
 
     /**
      * An {@link InstanceConstructorInterceptor}
