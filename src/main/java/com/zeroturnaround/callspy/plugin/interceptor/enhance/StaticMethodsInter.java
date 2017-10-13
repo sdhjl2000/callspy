@@ -8,8 +8,8 @@ import net.bytebuddy.implementation.bind.annotation.Origin;
 import net.bytebuddy.implementation.bind.annotation.RuntimeType;
 import net.bytebuddy.implementation.bind.annotation.SuperCall;
 import com.zeroturnaround.callspy.plugin.interceptor.loader.InterceptorInstanceLoader;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+
 
 /**
  * The actual byte-buddy's interceptor to intercept class instance methods.

@@ -1,1 +1,3 @@
 dubbo=com.zeroturnaround.callspy.dubbo.DubboInstrumentation
+jedis-2.x=com.zeroturnaround.callspy.jedis.define.JedisClusterInstrumentation
+jedis-2.x=com.zeroturnaround.callspy.jedis.define.JedisInstrumentation

@@ -2,6 +2,8 @@ package com.zeroturnaround.callspy.plugin.interceptor.enhance;
 
 import java.lang.reflect.Method;
 
+import com.zeroturnaround.callspy.logging.ILog;
+import com.zeroturnaround.callspy.logging.LogManager;
 import com.zeroturnaround.callspy.plugin.PluginException;
 import com.zeroturnaround.callspy.plugin.interceptor.loader.InterceptorInstanceLoader;
 import net.bytebuddy.implementation.bind.annotation.AllArguments;
@@ -9,8 +11,8 @@ import net.bytebuddy.implementation.bind.annotation.Morph;
 import net.bytebuddy.implementation.bind.annotation.Origin;
 import net.bytebuddy.implementation.bind.annotation.RuntimeType;
 import net.bytebuddy.implementation.bind.annotation.This;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+
 
 /**
  * The actual byte-buddy's interceptor to intercept class instance methods.
@@ -19,7 +21,7 @@ import org.slf4j.LoggerFactory;
  * @author wusheng
  */
 public class InstMethodsInterWithOverrideArgs {
-    private static final Logger logger = LoggerFactory.getLogger(InstMethodsInterWithOverrideArgs.class);
+    private static final ILog logger = LogManager.getLogger(InstMethodsInterWithOverrideArgs.class);
 
     /**
      * An {@link InstanceMethodsAroundInterceptor}
@@ -77,7 +79,7 @@ public class InstMethodsInterWithOverrideArgs {
                 interceptor.handleMethodException(targetObject, method, allArguments, method.getParameterTypes(),
                     t);
             } catch (Throwable t2) {
-                logger.error( "class[{}] handle method[{}] exception failure", obj.getClass(), method.getName());
+                logger.error(t2, "class[{}] handle method[{}] exception failure", obj.getClass(), method.getName());
             }
             throw t;
         } finally {
@@ -85,7 +87,7 @@ public class InstMethodsInterWithOverrideArgs {
                 ret = interceptor.afterMethod(targetObject, method, allArguments, method.getParameterTypes(),
                     ret);
             } catch (Throwable t) {
-                logger.error("class[{}] after method[{}] intercept failure", obj.getClass(), method.getName());
+                logger.error(t,"class[{}] after method[{}] intercept failure", obj.getClass(), method.getName());
             }
         }
         return ret;

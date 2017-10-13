@@ -7,14 +7,16 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.zeroturnaround.callspy.logging.ILog;
+import com.zeroturnaround.callspy.logging.LogManager;
 import com.zeroturnaround.callspy.plugin.exception.IllegalPluginDefineException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+
 
 public enum PluginCfg {
     INSTANCE;
 
-    private static final Logger logger = LoggerFactory.getLogger(PluginCfg.class);
+    private static final ILog logger = LogManager.getLogger(PluginCfg.class);
 
     private List<PluginDefine> pluginClassList = new ArrayList<PluginDefine>();
 
@@ -32,7 +34,7 @@ public enum PluginCfg {
                         pluginClassList.add(plugin);
                     }
                 } catch (IllegalPluginDefineException e) {
-                    logger.error("Failed to format plugin({}) define.", pluginDefine);
+                    logger.error(e, "Failed to format plugin({}) define.", pluginDefine);
                 }
             }
         } finally {

@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.zeroturnaround.callspy.logging.ILog;
+import com.zeroturnaround.callspy.logging.LogManager;
+
 
 /**
  * Use the current classloader to read all plugin define file.
@@ -16,7 +17,7 @@ import org.slf4j.LoggerFactory;
  * @author wusheng
  */
 public class PluginResourcesResolver {
-    private static final Logger logger = LoggerFactory.getLogger(PluginResourcesResolver.class);
+    private static final ILog logger = LogManager.getLogger(PluginResourcesResolver.class);
 
     public List<URL> getResources() {
         List<URL> cfgUrlPaths = new ArrayList<URL>();

@@ -2,6 +2,9 @@ package com.zeroturnaround.callspy;
 
 import java.lang.instrument.Instrumentation;
 
+import com.zeroturnaround.callspy.logging.EasyLogResolver;
+import com.zeroturnaround.callspy.logging.ILog;
+import com.zeroturnaround.callspy.logging.LogManager;
 import com.zeroturnaround.callspy.plugin.AbstractClassEnhancePluginDefine;
 import com.zeroturnaround.callspy.plugin.PluginBootstrap;
 import com.zeroturnaround.callspy.plugin.PluginFinder;
@@ -9,12 +12,16 @@ import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.dynamic.DynamicType;
 import net.bytebuddy.utility.JavaModule;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 public class Agent {
+  private static final ILog logger;
+
+  static {
+    LogManager.setLogResolver(new EasyLogResolver());
+    logger = LogManager.getLogger(Agent.class);
+  }
   public static void premain(String args, Instrumentation instrumentation){
-    final Logger logger = LoggerFactory.getLogger(Agent.class);
     final PluginFinder pluginFinder = new PluginFinder(new PluginBootstrap().loadPlugins());
     new AgentBuilder.Default().type(pluginFinder.buildMatch()).transform(new AgentBuilder.Transformer() {
       @Override

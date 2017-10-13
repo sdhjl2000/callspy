@@ -9,11 +9,13 @@ import java.security.ProtectionDomain;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
 
+import com.zeroturnaround.callspy.logging.ILog;
+import com.zeroturnaround.callspy.logging.LogManager;
 import com.zeroturnaround.callspy.plugin.interceptor.enhance.InstanceConstructorInterceptor;
 import com.zeroturnaround.callspy.plugin.interceptor.enhance.InstanceMethodsAroundInterceptor;
 import com.zeroturnaround.callspy.plugin.interceptor.enhance.StaticMethodsAroundInterceptor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+
 
 /**
  * The <code>InterceptorInstanceLoader</code> is a classes finder and container.
@@ -30,7 +32,7 @@ import org.slf4j.LoggerFactory;
  * Created by wusheng on 16/8/2.
  */
 public class InterceptorInstanceLoader {
-    private static final Logger logger = LoggerFactory.getLogger(InterceptorInstanceLoader.class);
+    private static final ILog logger = LogManager.getLogger(InterceptorInstanceLoader.class);
 
     private static ConcurrentHashMap<String, Object> INSTANCE_CACHE = new ConcurrentHashMap<String, Object>();
 
@@ -91,7 +93,7 @@ public class InterceptorInstanceLoader {
         BufferedInputStream is = null;
         ByteArrayOutputStream baos = null;
         try {
-            logger.debug("Read binary code of {} using classload {}", className, InterceptorInstanceLoader.class.getClassLoader());
+            logger.debug("Read binary code of {}", className);
             is = new BufferedInputStream(InterceptorInstanceLoader.class.getResourceAsStream(path));
             baos = new ByteArrayOutputStream();
             int ch = 0;

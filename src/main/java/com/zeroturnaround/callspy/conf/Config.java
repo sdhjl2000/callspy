@@ -3,6 +3,7 @@ package com.zeroturnaround.callspy.conf;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.zeroturnaround.callspy.logging.LogLevel;
 
 
 /**
@@ -99,6 +100,12 @@ public class Config {
         public static int MAX_FILE_SIZE = 300 * 1024 * 1024;
 
 
+        /**
+         * The log level. Default is debug.
+         *
+         * @see {@link LogLevel}
+         */
+        public static LogLevel LEVEL = LogLevel.DEBUG;
     }
 
     public static class Plugin {
