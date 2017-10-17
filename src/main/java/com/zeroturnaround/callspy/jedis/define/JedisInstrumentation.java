@@ -93,7 +93,7 @@ public class JedisInstrumentation extends ClassInstanceMethodsEnhancePluginDefin
                 }
 
                 @Override public boolean isOverrideArgs() {
-                    return false;
+                    return true;
                 }
             }
         };

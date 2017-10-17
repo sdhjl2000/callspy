@@ -16,6 +16,7 @@ dependencies {
     compile 'net.bytebuddy:byte-buddy:1.7.1'
     compileOnly ('com.alibaba:dubbo:2.5.4.8.dbfix')
     compileOnly ('redis.clients:jedis:2.8.1')
+    compile('com.thoughtworks.paranamer:paranamer:2.8')
     compile('com.lmax:disruptor:3.3.0')
     compile 'net.bytebuddy:byte-buddy-agent:1.5.7'
     testCompile "junit:junit:4.11"
