@@ -46,21 +46,22 @@ public enum RedisMethodMatch {
     }
 
     public ElementMatcher<MethodDescription> getJedisMethodMatcher() {
-        return getIntersectionalMethodMacher().or(named("sentinelMasters")).or(named("clusterReplicate")).or(named("readonly"))
-            .or(named("randomKey")).or(named("clusterInfo")).or(named("pubsubNumSub"))
-            .or(named("sentinelSlaves")).or(named("clusterSetSlotImporting")).or(named("clusterSlaves"))
-            .or(named("clusterFailover")).or(named("clusterSetSlotMigrating")).or(named("watch"))
-            .or(named("clientKill")).or(named("clusterKeySlot")).or(named("clusterCountKeysInSlot"))
-            .or(named("sentinelGetMasterAddrByName")).or(named("objectRefcount")).or(named("clusterMeet"))
-            .or(named("sentinelSet")).or(named("clusterSetSlotNode")).or(named("clusterAddSlots"))
-            .or(named("pubsubNumPat")).or(named("slowlogGet")).or(named("sentinelReset")).or(named("clusterNodes"))
-            .or(named("sentinelMonitor")).or(named("configGet")).or(named("objectIdletime"))
-            .or(named("pubsubChannels")).or(named("getParams")).or(named("sentinelRemove"))
-            .or(named("migrate")).or(named("clusterForget")).or(named("asking")).or(named("keys"))
-            .or(named("clientSetname")).or(named("clusterSaveConfig")).or(named("configSet"))
-            .or(named("dump")).or(named("clusterFlushSlots")).or(named("clusterGetKeysInSlot"))
-            .or(named("clusterReset")).or(named("restore")).or(named("clusterDelSlots"))
-            .or(named("sentinelFailover")).or(named("clusterSetSlotStable")).or(named("objectEncoding"));
+        return getIntersectionalMethodMacher();
+//        or(named("sentinelMasters")).or(named("clusterReplicate")).or(named("readonly"))
+//            .or(named("randomKey")).or(named("clusterInfo")).or(named("pubsubNumSub"))
+//            .or(named("sentinelSlaves")).or(named("clusterSetSlotImporting")).or(named("clusterSlaves"))
+//            .or(named("clusterFailover")).or(named("clusterSetSlotMigrating")).or(named("watch"))
+//            .or(named("clientKill")).or(named("clusterKeySlot")).or(named("clusterCountKeysInSlot"))
+//            .or(named("sentinelGetMasterAddrByName")).or(named("objectRefcount")).or(named("clusterMeet"))
+//            .or(named("sentinelSet")).or(named("clusterSetSlotNode")).or(named("clusterAddSlots"))
+//            .or(named("pubsubNumPat")).or(named("slowlogGet")).or(named("sentinelReset")).or(named("clusterNodes"))
+//            .or(named("sentinelMonitor")).or(named("configGet")).or(named("objectIdletime"))
+//            .or(named("pubsubChannels")).or(named("getParams")).or(named("sentinelRemove"))
+//            .or(named("migrate")).or(named("clusterForget")).or(named("asking")).or(named("keys"))
+//            .or(named("clientSetname")).or(named("clusterSaveConfig")).or(named("configSet"))
+//            .or(named("dump")).or(named("clusterFlushSlots")).or(named("clusterGetKeysInSlot"))
+//            .or(named("clusterReset")).or(named("restore")).or(named("clusterDelSlots"))
+//            .or(named("sentinelFailover")).or(named("clusterSetSlotStable")).or(named("objectEncoding"));
     }
 
     public ElementMatcher<MethodDescription> getJedisClusterMethodMatcher() {

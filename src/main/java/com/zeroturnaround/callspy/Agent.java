@@ -8,9 +8,12 @@ import com.zeroturnaround.callspy.logging.LogManager;
 import com.zeroturnaround.callspy.plugin.AbstractClassEnhancePluginDefine;
 import com.zeroturnaround.callspy.plugin.PluginBootstrap;
 import com.zeroturnaround.callspy.plugin.PluginFinder;
+import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.description.type.TypeDescription;
+import net.bytebuddy.dynamic.ClassFileLocator;
 import net.bytebuddy.dynamic.DynamicType;
+import net.bytebuddy.pool.TypePool;
 import net.bytebuddy.utility.JavaModule;
 
 
@@ -67,4 +70,14 @@ public class Agent {
       }
     }).installOn(instrumentation);
   }
+  public static void main(String[] args) throws IllegalAccessException, InstantiationException {
+    final PluginFinder pluginFinder = new PluginFinder(new PluginBootstrap().loadPlugins());
+    TypePool typePool = TypePool.Default.ofClassPath();
+    AbstractClassEnhancePluginDefine pluginDefine = pluginFinder.find(new TypeDescription.ForLoadedType(redis.clients.jedis.Jedis.class), ClassLoader.getSystemClassLoader());
+    DynamicType.Builder builder= pluginDefine.define("redis.clients.jedis.Jedis",new ByteBuddy()
+            .subclass(redis.clients.jedis.Jedis.class), ClassLoader.getSystemClassLoader());
+    builder.make().load(ClassLoader.getSystemClassLoader()).getLoaded().newInstance();
+
+  }
+
 }
