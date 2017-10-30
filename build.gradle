@@ -15,6 +15,7 @@ apply plugin: 'idea'
 dependencies {
     compile 'net.bytebuddy:byte-buddy:1.7.1'
     compileOnly ('com.alibaba:dubbo:2.5.4.8.dbfix')
+    compile ('com.ea.agentloader:ea-agent-loader:1.0.3')
     compile ('redis.clients:jedis:2.8.1')
     compileOnly ('cn.com.duiba.boot:spring-boot-ext:1.1.69')
     compile('com.thoughtworks.paranamer:paranamer:2.8')

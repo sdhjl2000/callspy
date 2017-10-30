@@ -1,19 +1,20 @@
 package com.zeroturnaround.callspy;
 
+import java.io.File;
 import java.lang.instrument.Instrumentation;
+import java.net.URISyntaxException;
 
+import com.ea.agentloader.AgentLoader;
 import com.zeroturnaround.callspy.logging.EasyLogResolver;
 import com.zeroturnaround.callspy.logging.ILog;
 import com.zeroturnaround.callspy.logging.LogManager;
 import com.zeroturnaround.callspy.plugin.AbstractClassEnhancePluginDefine;
 import com.zeroturnaround.callspy.plugin.PluginBootstrap;
 import com.zeroturnaround.callspy.plugin.PluginFinder;
-import net.bytebuddy.ByteBuddy;
+import net.bytebuddy.agent.ByteBuddyAgent;
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.description.type.TypeDescription;
-import net.bytebuddy.dynamic.ClassFileLocator;
 import net.bytebuddy.dynamic.DynamicType;
-import net.bytebuddy.pool.TypePool;
 import net.bytebuddy.utility.JavaModule;
 
 
@@ -24,7 +25,7 @@ public class Agent {
     LogManager.setLogResolver(new EasyLogResolver());
     logger = LogManager.getLogger(Agent.class);
   }
-  public static void premain(String args, Instrumentation instrumentation){
+  public static void agentmain(String args, Instrumentation instrumentation){
     final PluginFinder pluginFinder = new PluginFinder(new PluginBootstrap().loadPlugins());
     new AgentBuilder.Default().type(pluginFinder.buildMatch()).transform(new AgentBuilder.Transformer() {
       @Override
@@ -70,14 +71,9 @@ public class Agent {
       }
     }).installOn(instrumentation);
   }
-  public static void main(String[] args) throws IllegalAccessException, InstantiationException {
-    final PluginFinder pluginFinder = new PluginFinder(new PluginBootstrap().loadPlugins());
-    TypePool typePool = TypePool.Default.ofClassPath();
-    AbstractClassEnhancePluginDefine pluginDefine = pluginFinder.find(new TypeDescription.ForLoadedType(redis.clients.jedis.Jedis.class), ClassLoader.getSystemClassLoader());
-    DynamicType.Builder builder= pluginDefine.define("redis.clients.jedis.Jedis",new ByteBuddy()
-            .subclass(redis.clients.jedis.Jedis.class), ClassLoader.getSystemClassLoader());
-    builder.make().load(ClassLoader.getSystemClassLoader()).getLoaded().newInstance();
+
+  public static void main(String[] args) throws URISyntaxException {
+    AgentLoader.loadAgentClass(Agent.class.getName(), null);
 
   }
-
 }
